@@ -18,16 +18,21 @@ def load_data(filename):
 
 if __name__ == '__main__':
     digits = load_data(sys.argv[1])
+    stage = None
+    if len(sys.argv) > 2:
+        stage = sys.argv[2]
 
     for module in (
         'bigproduct',
-        'bigproductx',
-        'bigproduct_cythonloop',
-        'bigproduct_cythonloop_annotations',
-        'bigproduct_cython',
-        'cbigproduct'
-    ):
-        bpmod = importlib.import_module('walkthrough.' + module)
+        'walkthrough.bigproductx',
+        'walkthrough.bigproduct_cythonloop',
+        'walkthrough.bigproduct_cythonloop2',
+        'walkthrough.bigproduct_cythonloop_annotations',
+        'walkthrough.bigproduct_cython',
+        'walkthrough.bigproduct_cythonoverflow',
+        'walkthrough.cbigproduct'
+    )[:stage]:
+        bpmod = importlib.import_module(module)
         bigproduct = bpmod.bigproduct
         time = timeit.timeit(
             'bigproduct(digits)', number=1000, globals=globals())
