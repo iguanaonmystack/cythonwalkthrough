@@ -21,7 +21,7 @@ int main(int argc, char ** argv) {
         }
         return 1;
     }
-    result = entrance(1, 2);
+    result = entrance(3, 4);
     if (result == -1 && PyErr_Occurred()) {
         fprintf(stderr, "Exception raised in portal()\n");
         PyErr_PrintEx(0);
