@@ -7,6 +7,7 @@ AC_CONFIG_FILES(Makefile)
 # From: https://stackoverflow.com/questions/5056606/how-to-use-autotools-to-build-python-interface-at-same-time-as-library
 AM_PATH_PYTHON([3.4])
 AC_ARG_VAR([PYTHON_INCLUDE], [Include flags for python, bypassing python-config])
+AC_ARG_VAR([PYTHON_LDFLAGS], [Linker flags for python, bypassing python-config])
 AC_ARG_VAR([PYTHON_CONFIG], [Path to python-config])
 AS_IF([test -z "$PYTHON_INCLUDE"], [
   AS_IF([test -z "$PYTHON_CONFIG"], [
@@ -16,9 +17,9 @@ AS_IF([test -z "$PYTHON_INCLUDE"], [
                   [`dirname $PYTHON`])
     AS_IF([test "$PYTHON_CONFIG" = no], [AC_MSG_ERROR([cannot find python-config for $PYTHON.])])
   ])
-  AC_MSG_CHECKING([python include flags])
+  AC_MSG_CHECKING([python build flags])
   PYTHON_INCLUDE=`$PYTHON_CONFIG --includes`
-  AC_MSG_RESULT([$PYTHON_INCLUDE])
+  PYTHON_LDFLAGS=`$PYTHON_CONFIG --ldflags`
 ])
 
 # Check for Cython
